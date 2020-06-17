@@ -12,6 +12,8 @@ with open(filename,'r') as file:
 for worker in url_list:
     q.put(worker)
 
+start = time.time()
+
 def download(worker):
     check = subprocess.run(["wget",worker],stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     if check != 0 :
@@ -29,7 +31,5 @@ for x in range(10):
     t.daemon = True
     t.start()
 
-start = time.time()
 q.join()
-
 print("Total time taken to download files: ", time.time()-start)
