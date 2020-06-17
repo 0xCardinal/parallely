@@ -3,7 +3,6 @@ from queue import Queue
 
 lock = threading.Lock()
 q = Queue()
-count = 0
 
 filename = sys.argv[1]
 url_list = []
@@ -16,7 +15,6 @@ for worker in url_list:
 def download(worker):
     check = subprocess.run(["wget",worker],stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     if check != 0 :
-        count+=1
         with lock:
             print("Downloaded file from url: ",worker)
 
